@@ -1,5 +1,5 @@
 Social Media Sentiment Analysis Pipeline ->
-An end-to-end real-time sentiment analysis system for social media data with AI-powered insights using Apache Kafka, Apache Spark, Apache Airflow, Snowflake, and LangChain with Claude AI.
+An end-to-end real-time sentiment analysis system for social media data with AI-powered insights using Apache Kafka, Apache Spark, Apache Airflow, Snowflake, and LangChain.
  What This Project Does ->
 This project analyzes social media posts (Twitter, Reddit, Instagram, Facebook) to extract sentiment, emotions, brand mentions, and actionable insights. It combines traditional big data processing with modern AI to provide both fast batch analysis and deep contextual understanding.
  Technologies Used -
