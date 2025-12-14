@@ -45,7 +45,6 @@ services:
 
   # Spark Master
   spark-master:
-    # FIX: Switched to the official Apache Spark image to resolve "not found" errors
     image: apache/spark:3.5.0
     container_name: spark-master
     ports:
@@ -62,7 +61,6 @@ services:
 
   # Spark Worker
   spark-worker:
-    # FIX: Switched to the official Apache Spark image to resolve "not found" errors
     image: apache/spark:3.5.0
     container_name: spark-worker
     depends_on:
@@ -101,7 +99,7 @@ services:
 
   # Airflow Webserver
   airflow-webserver:
-    build: ./airflow
+    build: .  # FIXED: Build from root directory (where Dockerfile is)
     container_name: airflow-webserver
     depends_on:
       - postgres
@@ -116,10 +114,13 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'true'
+      # NEW: Add Anthropic API key (set this in .env file or replace with your key)
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
+      - ./scripts:/opt/airflow/scripts  # NEW: Mount scripts directory
       - ./data:/opt/airflow/data
     ports:
       - "8089:8080"
@@ -127,7 +128,7 @@ services:
 
   # Airflow Scheduler
   airflow-scheduler:
-    build: airflow
+    build: .  # FIXED: Build from root directory
     container_name: airflow-scheduler
     depends_on:
       - postgres
@@ -140,16 +141,19 @@ services:
       AIRFLOW__CORE__FERNET_KEY: 'YlCImzjge_TeZc7jPJ7Jz2pgOPLCWJbFgPtYXZjGGTQ='
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      # NEW: Add Anthropic API key
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
+      - ./scripts:/opt/airflow/scripts  # NEW: Mount scripts directory
       - ./data:/opt/airflow/data
     command: scheduler
 
   # Airflow Worker
   airflow-worker:
-    build: airflow
+    build: .  # FIXED: Build from root directory
     container_name: airflow-worker
     depends_on:
       - postgres
@@ -162,10 +166,13 @@ services:
       AIRFLOW__CORE__FERNET_KEY: 'YlCImzjge_TeZc7jPJ7Jz2pgOPLCWJbFgPtYXZjGGTQ='
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      # NEW: Add Anthropic API key
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
+      - ./scripts:/opt/airflow/scripts  # NEW: Mount scripts directory
       - ./data:/opt/airflow/data
     command: celery worker
 
