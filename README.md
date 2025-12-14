@@ -5,16 +5,16 @@ This project analyzes social media posts (Twitter, Reddit, Instagram, Facebook) 
  Technologies Used -
 Data Infrastructure ->
 
-Apache Kafka - Real-time data streaming and message queuing
-Apache Spark - Distributed batch processing for high-volume sentiment analysis
-Apache Airflow - Workflow orchestration and pipeline scheduling
-PostgreSQL - Airflow metadata storage
+Apache Kafka - Real-time data streaming and message queuing;
+Apache Spark - Distributed batch processing for high-volume sentiment analysis;
+Apache Airflow - Workflow orchestration and pipeline scheduling;
+PostgreSQL - Airflow metadata storage;
 Redis - Airflow task queue management
 
 AI & Machine Learning -> 
 
-LangChain - LLM orchestration framework for advanced sentiment analysis
-Anthropic Claude - AI model for deep contextual understanding, emotion detection, and intent analysis
+LangChain - LLM orchestration framework for advanced sentiment analysis;
+Anthropic Claude - AI model for deep contextual understanding, emotion detection, and intent analysis;
 Pydantic - Structured data validation and parsing
 
 Data Warehouse ->
